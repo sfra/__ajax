@@ -1,9 +1,9 @@
 # __ajax
 
-Simple ajax library. It do not require any additional dependencies. Two types of the library is provided:
+Simple ajax library. It do not require any additional dependencies. Three types of the library are provided:
     - regular js function
     - [require.js](https://requirejs.org/) module
-    
+    - supporting internet explorer  >= 8 (tested under [wine](https://www.winehq.org/))
 
 
 ### Installation
@@ -84,3 +84,15 @@ Returns the promise of the query.
     [Promise].then([function],[function])
 ```
 handles the the resolving and the rejection of promise.
+
+### The note on ie version
+This js file does not use the Promises, so it can work even under internet explorer (>=8).
+However, due to the above fact its usage differs than in the versions above.
+
+```javascript
+    var persons = new __ajax('data/persons.json');
+	persons.get(function(data){
+		console.log(JSON.parse(data));
+		///do something with the fetched data
+	});
+```
