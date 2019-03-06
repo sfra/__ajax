@@ -1,24 +1,14 @@
-/*
-*		let __ajax=new __ajax('/someUrl');
-*
-* __ajax.get(function(data){},function(err){});
-*/
-
-
 
 define([], function () {
   'use strict';
   function __ajax(_url, _config) {
 
-    let xmlhttp;
-    let config = {};
-    let url = _url;
-
-    let parameters = '';
+    let xmlhttp, config = {}, url = _url, parameters = '';
 
     let setParameters = (obj) => {
 
       parameters = '';
+
       for (let prop in obj) {
         if (obj.hasOwnProperty(prop)) {
           parameters += `${prop}=${obj[prop]}&`;
@@ -29,10 +19,7 @@ define([], function () {
 
     };
 
-
-
     config.method = (_config === undefined) ? 'GET' : (_config.method || 'POST');
-
 
     if (typeof _config !== 'undefined' && typeof _config.parameters !== 'undefined') {
       setParameters(_config.parameters);
@@ -44,27 +31,30 @@ define([], function () {
       xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
     }
 
-
-
-
+    
     let promise = null;
 
     return {
+    
       setUrl: (_url) => {
         url = _url;
       },
 
       setParameters: setParameters,
+    
       addParameters: (params)=>{
+    
         for(let prop in params) {
           if(params.hasOwnProperty(prop)) {
             parameters+=`&${prop}=${params[prop]}`;
           }
         }
       },
+    
       getParameters: ()=> {
         return parameters;
       },
+    
       setMethod: (meth)=>{
         config.method =meth;
       },
@@ -90,7 +80,6 @@ define([], function () {
           xmlhttp.send(parameters);
 
         });
-
 
         return promise;
 

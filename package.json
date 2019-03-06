@@ -1,5 +1,5 @@
 {
-  "name": "lib__ajax",
+  "name": "@sz.frankyy/__ajax",
   "version": "1.0.0",
   "description": "simple ajax library",
   "main": "__ajax.js",

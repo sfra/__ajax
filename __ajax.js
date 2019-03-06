@@ -1,47 +1,23 @@
-/*global
-define
-*/
-
-/*
- *		var __ajax=new __ajax('/someUrl');
- *
- * __ajax.get().then(function(data){},function(err){});
- */
-
 function __ajax(_url, _config) {
-
-  let xmlhttp;
-  let config = {};
-  let url = _url;
-
-  let parameters = '';
+  'use strict';
+  let xmlhttp, config = {}, url = _url, parameters = '';
 
   let setParameters = (obj) => {
-
     parameters = '';
     for (let prop in obj) {
       if (obj.hasOwnProperty(prop)) {
         parameters += prop + "=" + obj[prop] + '&';
       }
-    };
-
+    }
     parameters = parameters.substr(0, parameters.length - 1);
-
   };
-
 
 
   config.method = (_config === undefined) ? 'GET' : (_config.method || 'POST');
 
-  // Object.defineProperty(config, 'method', {
-  //   configurable: true,
-  //   enumerable: true,
-  //   value: (_config === undefined) ? 'GET' : (_config.method || 'POST')
-  // });
-
   if (typeof _config !== 'undefined' && typeof _config.parameters !== 'undefined') {
     setParameters(_config.parameters);
-  };
+  }
 
   if (window.XMLHttpRequest) {
     xmlhttp = new XMLHttpRequest();
@@ -49,17 +25,16 @@ function __ajax(_url, _config) {
     xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
   }
 
-
-
-
   let promise = null;
 
   return {
+
     setUrl: (_url) => {
       url = _url;
     },
 
     setParameters: setParameters,
+
     addParameters: (params)=>{
       for(let prop in params) {
         if(params.hasOwnProperty(prop)) {
@@ -67,9 +42,11 @@ function __ajax(_url, _config) {
         }
       } 
     },
+
     getParameters: ()=> {
       return parameters;
     },
+
     setMethod: (meth)=>{
       config.method =meth;
     },
@@ -84,23 +61,17 @@ function __ajax(_url, _config) {
             } else if (xmlhttp.status === 400) {
               rej('[400]');
             } else {
-              rej('[ne 200]')
+              rej('[ne 200]');
             }
           }
         };
 
         xmlhttp.open(config.method, url, true);
         console.log(config.method);
-        //                    if(config.method==='post') {
         xmlhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        //                    
-        //                                      };
-        //              xmlhttp.send(JSON.stringify(parameters));
         xmlhttp.send(parameters);
-
       });
-
 
       return promise;
 
