@@ -1,6 +1,6 @@
 {
   "name": "@sz.frankyy/__ajax",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "simple ajax library",
   "main": "__ajax.js",
   "scripts": {
